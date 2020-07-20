@@ -1,6 +1,7 @@
 import * as path from "path";
 import { browser, Config } from "protractor";
 import { Reporter } from "../support/reporter";
+var chromiumbinary= require('chromium-binary')
 const jsonReports = process.cwd() + "/reports/json";
 
 export const config: Config = {
@@ -11,10 +12,22 @@ export const config: Config = {
 
     baseUrl: "https://www.google.com",
 
-    capabilities: {
-        browserName: "chrome",
-    },
+    // capabilities: {
+    //     browserName: "chrome",
+    // },
 
+
+
+  capabilities:{
+    browserName : 'chrome',
+    
+    chromeOptions: {
+      binary:chromiumbinary.path,
+      'args': ['disable-infobars']},
+    //browserName : 'firefox',
+    //marionette : true,
+    acceptSslCerts : true
+},
     framework: "custom",
     frameworkPath: require.resolve("protractor-cucumber-framework"),
 
@@ -33,9 +46,9 @@ export const config: Config = {
         format: "json:./reports/json/cucumber_report.json",
         require: ["../../typeScript/stepdefinitions/*.js", "../../typeScript/support/*.js"],
         strict: true,
-        tags: "@CucumberScenario or @ProtractorScenario or @TypeScriptScenario or @OutlineScenario",
+        tags: "@desktop",
     },
-
+ 
     onComplete: () => {
         Reporter.createHTMLReport();
     },
