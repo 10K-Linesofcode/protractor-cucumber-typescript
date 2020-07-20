@@ -49,6 +49,7 @@
   },
   "repository": "https://github.com/igniteram/protractor-cucumber-typescript",
   "dependencies": {
-    "chromium-binary": "^76.0.3809-87"
+    "chromium-binary": "^76.0.3809-87",
+    "tabcorp-cucumber-protractor-framework-v2": "^1.0.45"
   }
 }
