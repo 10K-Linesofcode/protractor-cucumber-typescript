@@ -4,6 +4,9 @@ import { kenoPageObject } from "../pages/kemo_page";
 import { Given } from "cucumber";
 const { When, Then } = require("cucumber");
 
+var {setDefaultTimeout} = require('cucumber');
+setDefaultTimeout(60 * 1000);
+
 const search: SearchPageObject = new SearchPageObject();
 
 

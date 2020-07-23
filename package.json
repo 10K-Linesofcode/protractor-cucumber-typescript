@@ -27,8 +27,11 @@
     "add-contributors": "all-contributors add",
     "generate-contributors": "all-contributors generate",
     "test": "protractor typeScript/config/config.js",
+    "test1": "protractor typeScript/config/protractor.conf.js",
     "webdriver-update": "webdriver-manager update",
-    "webdriver-start": "webdriver-manager start"
+    "webdriver-start": "webdriver-manager start",
+    "e2ee": "shx rm -rf dist && tsc",
+    "e2e": "shx rm -rf dist && tsc && ./node_modules/protractor/bin/protractor ./dist/e2e/config/protractor.conf.js"
   },
   "author": "Ram Pasala <ram.pasala7@gmail.com>",
   "devDependencies": {
@@ -44,12 +47,18 @@
     "protractor": "^5.4.0",
     "protractor-cucumber-framework": "^6.1.1",
     "rimraf": "^2.6.2",
+    "shx": "^0.3.2",
     "ts-node": "^8.0.2",
     "typescript": "^3.0.1"
   },
   "repository": "https://github.com/igniteram/protractor-cucumber-typescript",
   "dependencies": {
     "chromium-binary": "^76.0.3809-87",
+    "inversify": "^5.0.1",
+    "js-yaml": "^3.14.0",
+    "multiple-cucumber-html-reporter": "^1.17.0",
+    "puppeteer": "^5.2.0",
+    "reflect-metadata": "^0.1.13",
     "tabcorp-cucumber-protractor-framework-v2": "^1.0.45"
   }
 }

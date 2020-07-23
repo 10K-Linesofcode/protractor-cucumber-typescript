@@ -10,7 +10,7 @@ export const config: Config = {
 
     SELENIUM_PROMISE_MANAGER: false,
 
-    baseUrl: "https://www.google.com",
+    baseUrl: "https://keno.com",
 
     // capabilities: {
     //     browserName: "chrome",
@@ -44,7 +44,7 @@ export const config: Config = {
     cucumberOpts: {
         compiler: "ts:ts-node/register",
         format: "json:./reports/json/cucumber_report.json",
-        require: ["../../typeScript/stepdefinitions/*.js", "../../typeScript/support/*.js"],
+        require: ["../../typeScript/stepdefinitions/*.js", "../../typeScript/support/*.js","../../node_modules/tabcorp-cucumber-protractor-framework-v2/dist/src/e2e/step-definitions/**/*.js"],
         strict: true,
         tags: "@desktop",
     },
@@ -53,3 +53,7 @@ export const config: Config = {
         Reporter.createHTMLReport();
     },
 };
+
+///Users/jarvis/Documents/GitHub/protractor-cucumber-typescript/node_modules/tabcorp-cucumber-protractor-framework-v2/e2e/step-definitions
+
+//node_modules/tabcorp-cucumber-protractor-framework-v2/e2e/step-definitions
