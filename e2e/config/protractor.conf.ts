@@ -17,7 +17,9 @@ import * as mkdirp from 'mkdirp';
 import * as moment from 'moment';
 import * as e2econfig from './e2e.conf.json';
 import { browser } from 'protractor';
-var chromiumbinary= require('chromium-binary')
+import { Reporter } from "../../support/reporter";
+var chromiumbinary = require('chromium-binary')
+
 
 const jsonReports = path.join(process.cwd(), 'e2e/reports/json');
 const htmlReports = path.join(process.cwd(), 'e2e/reports/html');
@@ -27,25 +29,25 @@ const cucumberReporterOptions = {
   //ignore: [],
   jsonDir: jsonReports,
   reportPath: htmlReports,
-  metadata: {
-    browser: {
-      name: 'chrome',
-      version: '60'
-    },
-    device: 'Local test machine',
-    platform: {
-      name: 'Windows'
-    }
-  },
-  customData: {
-    title: 'Run info',
-    data: [
-      { label: 'Project', value: 'Lott Protractor Tests' },
-      { label: 'Base Url', value: e2econfig.baseUrl },
-      { label: 'Execution Start Time', value: moment().format() }
-    ]
-  }
-}; 
+  // metadata: {
+  //   browser: {
+  //     name: 'chrome',
+  //     version: '60'
+  //   },
+  //   device: 'Local test machine',
+  //   platform: {
+  //     name: 'Windows'
+  //   }
+  // },
+  // customData: {
+  //   title: 'Run info',
+  //   data: [
+  //     { label: 'Project', value: 'Lott Protractor Tests' },
+  //     { label: 'Base Url', value: e2econfig.baseUrl },
+  //     { label: 'Execution Start Time', value: moment().format() }
+  //   ]
+  // }
+};
 
 export let config: protractor.Config = {
 
@@ -76,18 +78,21 @@ export let config: protractor.Config = {
   //   // maxInstances: 3
   // },
 
-  capabilities:{
-    browserName : 'chrome',
-    
-    chromeOptions: {
-      binary:chromiumbinary.path,
-      'args': ['disable-infobars']},
+  capabilities: {
+    browserName: 'chrome',
+
+    'goog:chromeOptions': {
+      binary: chromiumbinary.path,
+      'args': ['disable-infobars'],
+      w3c: false
+      }
+    ,
     //browserName : 'firefox', 
     //marionette : true,
-    acceptSslCerts : true
-},
+    acceptSslCerts: true
+  },
   specs: [e2econfig.features],
-  baseUrl: e2econfig.baseUrl,
+  baseUrl: "https://www.google.com",
   seleniumAddress: 'http://localhost:4444/wd/hub',
 
   allScriptsTimeout: e2econfig.testsConfigurationVariables.allScriptsTimeout,
@@ -97,6 +102,8 @@ export let config: protractor.Config = {
   cucumberOpts: {
     require: e2econfig.cucumberRequire,
     // format: e2econfig.report,
+    format: "json:./reports/json/cucumber_report.json",
+
     tags: "@desktop"
   },
 
@@ -107,6 +114,9 @@ export let config: protractor.Config = {
 
   // generate test report folder
   onPrepare: function () {
+
+    browser.ignoreSynchronization = true;
+    Reporter.createDirectory(jsonReports);
     if (!fs.existsSync(jsonReports)) {
       mkdirp.sync(jsonReports);
     }
@@ -118,13 +128,14 @@ export let config: protractor.Config = {
     }
 
     // pass custom & required config parameters
-    browser.params.requiredConfig = (e2econfig.testsConfigurationVariables || {required:null}).required;
-    browser.params.customConfig = (e2econfig.testsConfigurationVariables || {custom:null}).custom;
+    browser.params.requiredConfig = (e2econfig.testsConfigurationVariables || { required: null }).required;
+    browser.params.customConfig = (e2econfig.testsConfigurationVariables || { custom: null }).custom;
   },
   // invoke multiple-cucumber-html-reporter
   onComplete: function () {
     try {
-      reporter.generate(cucumberReporterOptions);
+      // reporter.generate(cucumberReporterOptions);
+      Reporter.createHTMLReport();
     } catch (err) {
       if (err) {
         throw new Error('Failed to save cucumber test results to json file.');

@@ -10,11 +10,13 @@
   ],
   "features": "../../../features/*.feature",
   "cucumberRequire": [
-    "../../node_modules/tabcorp-cucumber-protractor-framework-v2/dist/src/e2e/step-definitions/**/*.js",
+    "../../../node_modules/tabcorp-cucumber-protractor-framework-v2/dist/src/e2e/step-definitions/**/*.js",
     "../step-definitions/**/*.js",
     "../support/**/**/*.js",
     "../support/**/*.js",
-    "../support/*.js"
+    "../support/*.js",
+    "../../../dist/stepdefinitions/*.js",
+    "../../../dist/support/*.js"
   ],
  
   "tags": [

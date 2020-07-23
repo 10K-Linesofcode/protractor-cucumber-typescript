@@ -1,6 +1,6 @@
 Feature: As an automation framework I can click elements
 
-  @desktop
+
   Scenario: As a automation framework I can click a button
     #Given I am on the "home" page
     And I click the "add button" button

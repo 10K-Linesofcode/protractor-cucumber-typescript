@@ -10,11 +10,11 @@ setDefaultTimeout(60 * 1000);
 const search: SearchPageObject = new SearchPageObject();
 
 
-Given('I am on the {string} page', function (string) {
-  browser.get("https://keno.com")
+// Given('I am on the {string} page', function (string) {
+//   browser.get("https://keno.com")
 
-});
+// });
 
-Given('I click the {string} button', function (string) {
+// Given('I click the {string} button', function (string) {
   
-});
+// });

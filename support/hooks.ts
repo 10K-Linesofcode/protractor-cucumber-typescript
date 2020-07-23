@@ -1,7 +1,8 @@
 const { BeforeAll, After, AfterAll, Status } = require("cucumber");
 import * as fs from "fs";
 import { browser } from "protractor";
-import { config } from "../config/config";
+//import { config } from "../config/config";
+import { config } from "../e2e/config/protractor.conf";
 
 BeforeAll({timeout: 100 * 1000}, async () => {
     await browser.get(config.baseUrl);
