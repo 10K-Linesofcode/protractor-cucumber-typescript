@@ -17,6 +17,7 @@ import * as mkdirp from 'mkdirp';
 import * as moment from 'moment';
 import * as e2econfig from './e2e.conf.json';
 import { browser } from 'protractor';
+var chromiumbinary= require('chromium-binary')
 
 const jsonReports = path.join(process.cwd(), 'e2e/reports/json');
 const htmlReports = path.join(process.cwd(), 'e2e/reports/html');
@@ -44,40 +45,50 @@ const cucumberReporterOptions = {
       { label: 'Execution Start Time', value: moment().format() }
     ]
   }
-};
+}; 
 
 export let config: protractor.Config = {
 
-  directConnect: true,
+  directConnect: false,
   framework: 'custom',
   frameworkPath: require.resolve("protractor-cucumber-framework"),
 
-  capabilities: {
-    browserName: 'chrome',
-    chromeOptions: {
-      args: [
-        '--show-fps-counter',
-        '--no-default-browser-check',
-        '--no-first-run',
-        '--disable-default-apps',
-        '--disable-popup-blocking',
-        '--disable-translate',
-        '--disable-background-timer-throttling',
-        '--disable-renderer-backgrounding',
-        '--disable-device-discovery-notifications',
-        '--disable-web-security',
-        // '--headless',
-        '--no-gpu'
-      ],
-      binary: puppeteer.executablePath()
-    },
-    // shardTestFiles: true,
-    // maxInstances: 3
-  },
+  // capabilities: {
+  //   browserName: 'chrome',
+  //   chromeOptions: {
+  //     args: [
+  //       '--show-fps-counter',
+  //       '--no-default-browser-check',
+  //       '--no-first-run',
+  //       '--disable-default-apps',
+  //       '--disable-popup-blocking',
+  //       '--disable-translate',
+  //       '--disable-background-timer-throttling',
+  //       '--disable-renderer-backgrounding',
+  //       '--disable-device-discovery-notifications',
+  //       '--disable-web-security',
+  //       // '--headless',
+  //       '--no-gpu'
+  //     ],
+  //     binary: puppeteer.executablePath()
+  //   },
+  //   // shardTestFiles: true,
+  //   // maxInstances: 3
+  // },
 
+  capabilities:{
+    browserName : 'chrome',
+    
+    chromeOptions: {
+      binary:chromiumbinary.path,
+      'args': ['disable-infobars']},
+    //browserName : 'firefox', 
+    //marionette : true,
+    acceptSslCerts : true
+},
   specs: [e2econfig.features],
   baseUrl: e2econfig.baseUrl,
-  // seleniumAddress: 'http://localhost:4444/wd/hub',
+  seleniumAddress: 'http://localhost:4444/wd/hub',
 
   allScriptsTimeout: e2econfig.testsConfigurationVariables.allScriptsTimeout,
 
@@ -85,8 +96,8 @@ export let config: protractor.Config = {
 
   cucumberOpts: {
     require: e2econfig.cucumberRequire,
-    format: e2econfig.report,
-    tags: e2econfig.tags
+    // format: e2econfig.report,
+    tags: "@desktop"
   },
 
   // suites: {

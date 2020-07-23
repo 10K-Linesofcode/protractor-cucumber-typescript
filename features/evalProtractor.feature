@@ -1,6 +1,6 @@
 Feature: To search protractor in google
 
-@ProtractorScenario
+
 Scenario: Protractor Google Search
 Given I am on "cucumber" search page
 When I type "protractor"

@@ -24,7 +24,7 @@ export const config: Config = {
     chromeOptions: {
       binary:chromiumbinary.path,
       'args': ['disable-infobars']},
-    //browserName : 'firefox',
+    //browserName : 'firefox', 
     //marionette : true,
     acceptSslCerts : true
 },

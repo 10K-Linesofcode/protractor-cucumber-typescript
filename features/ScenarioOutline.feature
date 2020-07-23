@@ -1,6 +1,6 @@
 Feature: To search keywords in google
 
-@OutlineScenario
+
 Scenario Outline: Searching on google
   
   Given I am on "<search>" search page
